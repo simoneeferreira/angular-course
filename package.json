@@ -1,0 +1,27 @@
+{
+  "name": "angular-course",
+  "version": "1.0.0",
+  "description": "\"This is the Git and Node basic learning project\",",
+  "main": "index.js",
+  "dependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simoneeferreira/angular-course.git"
+  },
+  "author": "Simone Ferreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simoneeferreira/angular-course/issues"
+  },
+  "homepage": "https://github.com/simoneeferreira/angular-course#readme"
+}

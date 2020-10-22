@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dish } from '../shared/dish';
-import { DISHES } from '../shared/dishes';
+import { DishService } from '../services/dish.service';
 // tslint:disable-next-line: whitespace
-
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -12,15 +10,18 @@ import { DISHES } from '../shared/dishes';
 
 export class MenuComponent implements OnInit {
 
-  dishes: Dish[] = DISHES;
+  dishes: Dish[];
 
   selectedDish: Dish;
 
-  constructor() { }
+  constructor(private dishService: DishService) { }
 
-  ngOnInit(): void {
+  // tslint:disable-next-line: typedef
+  ngOnInit() {
+    this.dishes = this.dishService.getDishes();
   }
 
+  // tslint:disable-next-line: typedef
   onSelect(dish: Dish) {
     this.selectedDish = dish;
   }

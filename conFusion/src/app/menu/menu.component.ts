@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   ngOnInit() {
-    this.dishes = this.dishService.getDishes();
+    this.dishService.getDishes().then(dishes => this.dishes = dishes);
   }
 
   // tslint:disable-next-line: typedef

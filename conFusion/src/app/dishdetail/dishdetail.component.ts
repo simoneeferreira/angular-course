@@ -3,6 +3,8 @@ import { Dish } from '../shared/dish';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
+import { subscribeOn } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 
 
@@ -15,6 +17,9 @@ styleUrls: ['./dishdetail.component.scss'],
 export class DishdetailComponent implements OnInit {
 
   dish: Dish;
+  dishIds: string[];
+  prev: string;
+  next: string;
 
   constructor(private dishservice: DishService,
               private route: ActivatedRoute,
@@ -24,8 +29,18 @@ export class DishdetailComponent implements OnInit {
   // tslint:disable-next-line: typedef
   ngOnInit() {
 
-    const id = this.route.snapshot.params.id;
-    this.dishservice.getDish(id).then(dish => this.dish = dish);
+    this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+    // tslint:disable-next-line: no-string-literal
+    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
+    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
+
+  }
+
+  // tslint:disable-next-line: typedef
+  setPrevNext(dishId: string) {
+    const index = this.dishIds.indexOf(dishId);
+    this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+    this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
 
   goBack(): void {
